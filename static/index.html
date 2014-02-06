@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<form action="#" method="get" onsubmit="document.getElementById('log').value='';return false">
+<input type="text" id="msg"/>
+<input type="submit" value="Send" onclick="sock.send(document.getElementById('msg').value)"/>
+</form>
+<div id="log">
+  Logs will be here<br/>
+</div>
+<script>
+var sock = new WebSocket("ws://hush29.postech.ac.kr:5936/ws");
+sock.onopen = function() {
+  document.getElementById('log').innerHTML += "Opened" + "<br/>";
+}
+sock.onmessage = function(e) {
+  document.getElementById('log').innerHTML += e.data + "<br/>";
+}
+sock.onclose = function() {
+  document.getElementById('log').innerHTML += "Closed" + "<br/>";
+}
+</script>
+</body>
+</html>
